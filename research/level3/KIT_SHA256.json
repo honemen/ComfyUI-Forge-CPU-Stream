@@ -1,0 +1,14 @@
+{
+  "compare_conditioning.py": "6f8398fd90080dc77ade13dd0e5866f583e0584812f2a0c381b524ae6f4084e2",
+  "compare_traces_v3.py": "5c3ec873fb5d9320e4ecf28fefc880386c60ac90a31c396a204534b3b15c7f81",
+  "fc_trace3.py": "2529a2cfad75031073179e6829bb3d03c69388d3e46c6da9d5938b366e3e803f",
+  "inspect_safetensors.py": "8530fc0546ea18745efa876c2ec169909e863c3b9c5604e6bdd353e230f55303",
+  "observed_v3_summary.json": "1df264b600c222c1d3e504d95ce38c19e031f577c65f01a1b2e513b1c6fd6ad5",
+  "parser_source_probe.json": "93e43ea32af033d5b67e6b1929178734ede23aa39d2465300f629353253ca443",
+  "patches/baseline_normalized_sha256.json": "c45947b97a2fd78dd358ef4ba33490040fefdfa826225a0a264d22bafed0c1b5",
+  "patches/comfy_level3.patch": "47b9d3da913f0404e9bf4ab80b8bed03c54c23450bfafc7a55228954f98ff263",
+  "patches/comfy_level3_lora.patch": "ada49fa60ee19dc4523e1c71cb361f25f9314f1582ae80c37958f773595f5465",
+  "patches/forge_level3.patch": "41a7245475d4f78fa2bafa724b84949c8b98e8e858eaf9ed7c00cd3138146164",
+  "patches/forge_level3_lora.patch": "ce23019d9d0c4330e9e58b0968cec17d21b74d1661fe756fec1dfc4d42e4d299",
+  "verification.json": "3b4b4d247f643ba1cf366e266dc3f1bd843427a984d7732619e1a0c64b6f2e4f"
+}

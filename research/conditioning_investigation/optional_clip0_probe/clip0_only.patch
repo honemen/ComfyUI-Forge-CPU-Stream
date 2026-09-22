@@ -1,0 +1,61 @@
+--- a/fc_trace3.py
++++ b/fc_trace3.py
+@@ -20,6 +20,13 @@
+ _READY = False
+ _REGISTRY = {}
+ _LORA = []
++
++
++def _wanted_texts(texts):
++    path=os.environ.get('FC_TRACE3_TARGET_JSON')
++    if not path:return True
++    target=json.loads(Path(path).read_text(encoding='utf-8-sig'))
++    return list(texts or [])==[target]
+ 
+ 
+ def enabled():
+@@ -231,6 +238,9 @@
+     if isinstance(projection, torch.nn.Module):
+         handles.append(projection.register_forward_pre_hook(lambda m,a: rows('pool.pre_projection', a[0])))
+         handles.append(projection.register_forward_hook(lambda m,a,o: rows('pool.projected', o)))
++    if os.environ.get('FC_CLIP0_PROBE') == '1':
++        from clip0_probe import attach
++        handles.extend(attach(transformer,s))
+     try: yield
+     finally:
+         for h in handles: h.remove()
+@@ -239,7 +249,7 @@
+ def forge_encoder(fn):
+     @functools.wraps(fn)
+     def wrapped(self, texts, *a, **kw):
+-        if not enabled(): return fn(self, texts, *a, **kw)
++        if not enabled() or not _wanted_texts(texts): return fn(self, texts, *a, **kw)
+         if len(texts) != 1: raise ValueError('Level 3 supports one text per Forge CLIP call')
+         with session('forge','encode',self.embedding_key,list(texts), emphasis=self.emphasis.name) as s:
+             _source(fn)
+@@ -271,7 +281,7 @@
+ def comfy_tokenizer(fn):
+     @functools.wraps(fn)
+     def wrapped(self,text,*a,**kw):
+-        if not enabled(): return fn(self,text,*a,**kw)
++        if not enabled() or not _wanted_texts([text]): return fn(self,text,*a,**kw)
+         with session('comfy','tokenize',self.embedding_key,[text]) as s:
+             _source(fn)
+             stage('prompt',text)
+@@ -293,6 +303,7 @@
+         key=(encoder,_fingerprint([[(p[0],p[1]) for p in row] for row in pairs]))
+         entries=_REGISTRY.get(key,[])
+         texts=list(dict.fromkeys(e['text'] for e in entries))
++        if not _wanted_texts(texts): return fn(self,pairs,*a,**kw)
+         with session('comfy','encode',encoder,texts or None, tokenizer_matches=[e['session'] for e in entries]) as s:
+             _source(fn)
+             s.sections=len(pairs)
+@@ -320,7 +331,7 @@
+ 
+ 
+ def assembly(engine, context, pooled=None, vector=None, **details):
+-    if not enabled(): return
++    if not enabled() or os.environ.get('FC_TRACE3_TARGET_JSON'): return
+     with session(engine,'assembly','sdxl',None,**details):
+         put('context',context)
+         if pooled is not None: put('pooled',pooled)

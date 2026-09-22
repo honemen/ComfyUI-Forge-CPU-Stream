@@ -1,0 +1,13 @@
+{
+  "forge": {
+    "modules/sd_samplers_kdiffusion.py": "3046a60b3811bec9df6058108c1b3622d7423a10716afeb703e6a28ae6e44c09",
+    "modules_forge/packages/k_diffusion/sampling.py": "3464c7a5a76080201f2492da2a9495b497f5b153779f61751ad7d337ea8fbaa2",
+    "backend/sampling/sampling_function.py": "b608abbf9cb663e6163d981359c8bfc21bc51f6545f7b33bd36c60716eef8724",
+    "backend/modules/k_model.py": "4741caf9c24c5215f0e827253956a985bf4850ecd0f27910b530dd72032b5ed7"
+  },
+  "comfy": {
+    "comfy/samplers.py": "f2c264ca9d394612f828e3ffe167c856a278a10e1711b269f0ba65dccb66393f",
+    "comfy/k_diffusion/sampling.py": "cfc4221ed0bc1f84a6f5689d3ec440cad3008c2541ab8f5e2599d1a73fac74ce",
+    "comfy/model_base.py": "45082978479efb4726b96185d89de440563e16f17446af92c4655b587ef6aee6"
+  }
+}

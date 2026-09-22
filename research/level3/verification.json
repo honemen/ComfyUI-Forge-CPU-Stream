@@ -1,0 +1,23 @@
+{
+  "cpu_runtime": "PyTorch 2.14.0+cpu / Python 3.12 / Transformers 4.46.3",
+  "tested": [
+    "attached v3 files match",
+    "git apply --check/apply/reverse for core + optional LoRA",
+    "byte-exact restoration to Level 1/2 baseline",
+    "helper/patch Python syntax",
+    "patched tokenizer and weighting execution",
+    "CPU output and RNG unchanged with/without tracing",
+    "real small Hugging Face CLIP / source Comfy CLIP observer execution",
+    "multi-chunk and empty-weighting branch alignment",
+    "bf16/scalar snapshots / in-place independence",
+    "exception hook cleanup",
+    "required missing-stage detection",
+    "split context and y association",
+    "LoRA metadata serialization",
+    "optional detailed-layer hooks and stored parameter hashes"
+  ],
+  "not_tested": [
+    "user GPU/checkpoint/LoRA/prompt Level 3 execution",
+    "actual first upstream divergence in user run"
+  ]
+}

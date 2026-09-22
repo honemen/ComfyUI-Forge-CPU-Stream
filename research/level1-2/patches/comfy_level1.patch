@@ -1,0 +1,113 @@
+--- a/comfy/samplers.py
++++ b/comfy/samplers.py
+@@ -9,6 +9,8 @@
+     from comfy.model_base import BaseModel
+     from comfy.controlnet import ControlBase
+ import torch
++from fc_trace import trace as _fc
++_fc.source(__file__)
+ from functools import partial
+ import collections
+ import math
+@@ -990,7 +992,14 @@
+         else:
+             model_k.noise = noise
+ 
++        _fc.begin(engine="comfy", seed=extra_args.get("seed", None))
++        _fc.put("eps0", noise)
++        _fc.put("sigmas.base", model_wrap.inner_model.model_sampling.sigmas)
++        _fc.put("sigmas.base_log", model_wrap.inner_model.model_sampling.log_sigmas)
++        _fc.put("sigmas.sampler", sigmas)
++        _fc.meta("scale", max_denoise=self.max_denoise(model_wrap, sigmas))
+         noise = model_wrap.inner_model.model_sampling.noise_scaling(sigmas[0], noise, latent_image, self.max_denoise(model_wrap, sigmas))
++        _fc.put("x0", noise)
+ 
+         total_steps = len(sigmas) - 1
+         first_step = True
+--- a/comfy/k_diffusion/sampling.py
++++ b/comfy/k_diffusion/sampling.py
+@@ -3,6 +3,8 @@
+ 
+ from scipy import integrate
+ import torch
++from fc_trace import trace as _fc
++_fc.source(__file__)
+ from torch import nn
+ import torchsde
+ from tqdm.auto import tqdm
+@@ -1598,28 +1600,49 @@
+     seed = extra_args.get("seed", None)
+     noise_sampler = default_noise_sampler(x, seed=seed) if noise_sampler is None else noise_sampler
+     s_noise = s_noise * getattr(model.inner_model.model_patcher.get_model_object('model_sampling'), "noise_scale", 1.0)
++    _fc_original_noise = noise_sampler
++    def _fc_noise(a, b):
++        z = _fc_original_noise(a, b)
++        _fc.put("noise", z)
++        return z
++    noise_sampler = _fc_noise
+     s_in = x.new_ones([x.shape[0]])
+ 
+     def default_er_sde_noise_scaler(x):
+         return x * ((x ** 0.3).exp() + 10.0)
+ 
+     noise_scaler = default_er_sde_noise_scaler if noise_scaler is None else noise_scaler
++    _fc.meta("solver", s_noise=s_noise, max_stage=max_stage, noise_scaler=noise_scaler,
++             integration_points=200, seed=extra_args.get("seed", None))
+     num_integration_points = 200.0
+     point_indice = torch.arange(0, num_integration_points, dtype=torch.float32, device=x.device)
+ 
+     model_sampling = model.inner_model.model_patcher.get_model_object("model_sampling")
+     sigmas = offset_first_sigma_for_snr(sigmas, model_sampling)
++    _fc.put("sigmas.er", sigmas)
++    _fc.put("sigmas.er_base", model_sampling.sigmas)
++    _fc.meta("prediction", kind=type(model_sampling).__name__, sigma_data=getattr(model_sampling, "sigma_data", None))
+     half_log_snrs = sigma_to_half_log_snr(sigmas, model_sampling)
+     er_lambdas = half_log_snrs.neg().exp()  # er_lambda_t = sigma_t / alpha_t
++    _fc.put("solver.er_lambdas", er_lambdas)
+ 
+     old_denoised = None
+     old_denoised_d = None
+ 
+     for i in trange(len(sigmas) - 1, disable=disable):
+-        denoised = model(x, sigmas[i] * s_in, **extra_args)
+-        if callback is not None:
+-            callback({'x': x, 'i': i, 'sigma': sigmas[i], 'sigma_hat': sigmas[i], 'denoised': denoised})
++        _fc.set_step(i)
++        _fc.put("step.x_in", x)
++        _fc.put("step.sigma", sigmas[i])
++        _fc.put("solver.old_denoised", old_denoised, level=2)
++        _fc.put("solver.old_denoised_d", old_denoised_d, level=2)
++        denoised = model(x, sigmas[i] * s_in, **extra_args)
++        _fc.put("step.denoised", denoised)
++        if callback is not None:
++            callback({'x': x, 'i': i, 'sigma': sigmas[i], 'sigma_hat': sigmas[i], 'denoised': denoised})
++        _fc.put("step.x_after_callback", x, level=2)
++        _fc.put("step.denoised_after_callback", denoised, level=2)
+         stage_used = min(max_stage, i + 1)
++        _fc.meta("solver.stage", stage_used=stage_used)
+         if sigmas[i + 1] == 0:
+             x = denoised
+         else:
+@@ -1628,6 +1651,9 @@
+             alpha_t = sigmas[i + 1] / er_lambda_t
+             r_alpha = alpha_t / alpha_s
+             r = noise_scaler(er_lambda_t) / noise_scaler(er_lambda_s)
++            _fc.put("solver.r", r)
++            _fc.put("solver.alpha_s", alpha_s)
++            _fc.put("solver.alpha_t", alpha_t)
+ 
+             # Stage 1 Euler
+             x = r_alpha * r * x + alpha_t * (1 - r) * denoised
+@@ -1650,9 +1676,12 @@
+                     x = x + alpha_t * ((dt ** 2) / 2 + s_u * noise_scaler(er_lambda_t)) * denoised_u
+                 old_denoised_d = denoised_d
+ 
++            _fc.put("step.x_before_noise", x, level=2)
+             if s_noise > 0:
+                 x = x + alpha_t * noise_sampler(sigmas[i], sigmas[i + 1]) * s_noise * (er_lambda_t ** 2 - er_lambda_s ** 2 * r ** 2).sqrt().nan_to_num(nan=0.0)
++        _fc.put("step.x_out", x)
+         old_denoised = denoised
++    _fc.set_step(-1)
+     return x
+ 
+ 

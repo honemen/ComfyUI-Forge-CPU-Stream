@@ -1,0 +1,688 @@
+{
+  "id": "9d38404b-8499-4b3c-8cbe-525463200d27",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 17,
+  "nodes": [
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [
+        1849.0655090990197,
+        -822.1826364593296
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 6
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 7,
+      "type": "CFGGuider",
+      "pos": [
+        1288.25465337719,
+        -831.5079236488891
+      ],
+      "size": [
+        270,
+        98
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 15
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CFGGuider"
+      },
+      "widgets_values": [
+        4
+      ],
+      "widgets_values_named": {
+        "cfg": 4
+      }
+    },
+    {
+      "id": 8,
+      "type": "BetaSamplingScheduler",
+      "pos": [
+        1239.7001730639856,
+        -644.0651952625076
+      ],
+      "size": [
+        323.9,
+        106
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BetaSamplingScheduler"
+      },
+      "widgets_values": [
+        36,
+        0.6,
+        0.6
+      ],
+      "widgets_values_named": {
+        "steps": 36,
+        "alpha": 0.6,
+        "beta": 0.6
+      }
+    },
+    {
+      "id": 6,
+      "type": "KSamplerSelect",
+      "pos": [
+        805.3907570845428,
+        -995.463372080689
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "er_sde"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "er_sde"
+      }
+    },
+    {
+      "id": 9,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        1595.7524362004,
+        -825.865449485216
+      ],
+      "size": [
+        221.9,
+        326
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 12
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 3
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 11
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 4
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 5,
+      "type": "ModelSamplingDiscrete",
+      "pos": [
+        951.8933744207516,
+        -587.2095035720632
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1,
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingDiscrete"
+      },
+      "widgets_values": [
+        "v_prediction",
+        true
+      ],
+      "widgets_values_named": {
+        "sampling": "v_prediction",
+        "zsnr": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "EmptyLatentImage",
+      "pos": [
+        216.33852067093508,
+        -824.1562471465569
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        205.25058542481236,
+        -663.3200731065092
+      ],
+      "size": [
+        281.9,
+        98
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            13
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            14,
+            17
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "silvermoonmix_v60VPred.safetensors"
+      ],
+      "widgets_values_named": {
+        "ckpt_name": "silvermoonmix_v60VPred.safetensors"
+      }
+    },
+    {
+      "id": 11,
+      "type": "PreviewImage",
+      "pos": [
+        1851.0693921701504,
+        -707.485885669506
+      ],
+      "size": [
+        140,
+        246
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 12,
+      "type": "ForgeTextEncodeMinimal",
+      "pos": [
+        531.0368677718395,
+        -556.4233381478467
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            16
+          ]
+        },
+        {
+          "name": "token_report",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeTextEncodeMinimal"
+      },
+      "widgets_values": [
+        "worst quality, low quality, lowres, blurry, bad anatomy, bad hands",
+        "chunk_and_original"
+      ],
+      "widgets_values_named": {
+        "text": "worst quality, low quality, lowres, blurry, bad anatomy, bad hands",
+        "mode": "chunk_and_original"
+      }
+    },
+    {
+      "id": 2,
+      "type": "ForgeTextEncodeMinimal",
+      "pos": [
+        531.8478706366559,
+        -832.3133359222591
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            15
+          ]
+        },
+        {
+          "name": "token_report",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeTextEncodeMinimal"
+      },
+      "widgets_values": [
+        "masterpiece, best quality, amazing quality, very aesthetic, absurdres, newest,\n1girl, original character, short silver hair, blue eyes, white jacket,\nstanding, looking at viewer, simple city street background,\ndaytime, soft natural lighting, detailed illustration",
+        "chunk_and_original"
+      ],
+      "widgets_values_named": {
+        "text": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, newest,\n1girl, original character, short silver hair, blue eyes, white jacket,\nstanding, looking at viewer, simple city street background,\ndaytime, soft natural lighting, detailed illustration",
+        "mode": "chunk_and_original"
+      }
+    },
+    {
+      "id": 1,
+      "type": "ForgeCPUStreamAdapter",
+      "pos": [
+        1165.2346705053312,
+        -995.1841591867982
+      ],
+      "size": [
+        278.75546875,
+        126
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeCPUStreamAdapter"
+      },
+      "widgets_values": [
+        6563063902883769,
+        "fixed",
+        "forge_off"
+      ],
+      "widgets_values_named": {
+        "seed": 6563063902883769,
+        "control_after_generate": "fixed",
+        "initial_scale": "forge_off"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      5,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      5,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      7,
+      0,
+      9,
+      1,
+      "GUIDER"
+    ],
+    [
+      4,
+      8,
+      0,
+      9,
+      3,
+      "SIGMAS"
+    ],
+    [
+      5,
+      3,
+      0,
+      9,
+      4,
+      "LATENT"
+    ],
+    [
+      6,
+      9,
+      0,
+      10,
+      0,
+      "LATENT"
+    ],
+    [
+      7,
+      4,
+      2,
+      10,
+      1,
+      "VAE"
+    ],
+    [
+      8,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      10,
+      6,
+      0,
+      1,
+      0,
+      "SAMPLER"
+    ],
+    [
+      11,
+      1,
+      1,
+      9,
+      2,
+      "SAMPLER"
+    ],
+    [
+      12,
+      1,
+      0,
+      9,
+      0,
+      "NOISE"
+    ],
+    [
+      13,
+      4,
+      0,
+      5,
+      0,
+      "MODEL"
+    ],
+    [
+      14,
+      4,
+      1,
+      2,
+      0,
+      "CLIP"
+    ],
+    [
+      15,
+      2,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      16,
+      12,
+      0,
+      7,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      17,
+      4,
+      1,
+      12,
+      0,
+      "CLIP"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9333378867564014,
+      "offset": [
+        -159.27477894691725,
+        1179.8378341693335
+      ]
+    },
+    "frontendVersion": "1.51.10"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,1358 @@
+{
+  "noise_events_compared": 35,
+  "noise_events_nonexact": 0,
+  "missing_required_core": {
+    "forge": [],
+    "comfy": []
+  },
+  "step0": [
+    {
+      "step": 0,
+      "name": "step.x_in",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "step.sigma",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [],
+      "comfy_stride": [],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "apply.input.uncond.x",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "apply.input.cond.x",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "apply.input.uncond.sigma",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "apply.input.cond.sigma",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "apply.input.uncond.context",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cpu",
+      "forge_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "comfy_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "max_abs": 0.5089492797851562,
+      "rms": 0.003889868559895177,
+      "relative_l2": 0.004799292709954016,
+      "unequal_elements": 473085,
+      "first_index": [
+        0,
+        0,
+        0
+      ],
+      "forge_value": -0.3452170789241791,
+      "comfy_value": -0.3446475863456726
+    },
+    {
+      "step": 0,
+      "name": "apply.input.cond.context",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cpu",
+      "forge_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "comfy_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "max_abs": 22.97327995300293,
+      "rms": 0.7266598955852369,
+      "relative_l2": 0.8489278159587287,
+      "unequal_elements": 473049,
+      "first_index": [
+        0,
+        0,
+        0
+      ],
+      "forge_value": -0.3443368375301361,
+      "comfy_value": -0.3443281054496765
+    },
+    {
+      "step": 0,
+      "name": "apply.input.uncond.y",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cpu",
+      "forge_stride": [
+        2816,
+        1
+      ],
+      "comfy_stride": [
+        2816,
+        1
+      ],
+      "max_abs": 0.0013130605220794678,
+      "rms": 0.00023169026454029424,
+      "relative_l2": 0.00041803642956949856,
+      "unequal_elements": 1280,
+      "first_index": [
+        0,
+        0
+      ],
+      "forge_value": -0.07736089825630188,
+      "comfy_value": -0.07761427760124207
+    },
+    {
+      "step": 0,
+      "name": "apply.input.cond.y",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cpu",
+      "forge_stride": [
+        2816,
+        1
+      ],
+      "comfy_stride": [
+        2816,
+        1
+      ],
+      "max_abs": 0.4118059426546097,
+      "rms": 0.07104505037532657,
+      "relative_l2": 0.12701162420410617,
+      "unequal_elements": 1280,
+      "first_index": [
+        0,
+        0
+      ],
+      "forge_value": 0.03718182444572449,
+      "comfy_value": -0.05009713023900986
+    },
+    {
+      "step": 0,
+      "name": "unet.input.uncond.xc",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "unet.input.cond.xc",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "unet.input.uncond.timestep",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "unet.input.cond.timestep",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "unet.input.uncond.context",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "comfy_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "max_abs": 0.5,
+      "rms": 0.0039046730393288626,
+      "relative_l2": 0.0048173288714445745,
+      "unequal_elements": 462147,
+      "first_index": [
+        0,
+        0,
+        0
+      ],
+      "forge_value": -0.34521484375,
+      "comfy_value": -0.3447265625
+    },
+    {
+      "step": 0,
+      "name": "unet.input.cond.context",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "comfy_stride": [
+        473088,
+        2048,
+        1
+      ],
+      "max_abs": 22.9765625,
+      "rms": 0.7266611396257179,
+      "relative_l2": 0.8488963669002735,
+      "unequal_elements": 443262,
+      "first_index": [
+        0,
+        0,
+        1
+      ],
+      "forge_value": -0.078369140625,
+      "comfy_value": -0.07830810546875
+    },
+    {
+      "step": 0,
+      "name": "unet.input.uncond.y",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        2816,
+        1
+      ],
+      "comfy_stride": [
+        2816,
+        1
+      ],
+      "max_abs": 0.00128173828125,
+      "rms": 0.00023761854637741213,
+      "relative_l2": 0.0004287328157109535,
+      "unequal_elements": 1103,
+      "first_index": [
+        0,
+        0
+      ],
+      "forge_value": -0.07733154296875,
+      "comfy_value": -0.07763671875
+    },
+    {
+      "step": 0,
+      "name": "unet.input.cond.y",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        2816,
+        1
+      ],
+      "comfy_stride": [
+        2816,
+        1
+      ],
+      "max_abs": 0.411865234375,
+      "rms": 0.07104696978614324,
+      "relative_l2": 0.12701512430649015,
+      "unequal_elements": 1280,
+      "first_index": [
+        0,
+        0
+      ],
+      "forge_value": 0.03717041015625,
+      "comfy_value": -0.05010986328125
+    },
+    {
+      "step": 0,
+      "name": "unet.output.uncond.raw",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.01611328125,
+      "rms": 0.004071183726621448,
+      "relative_l2": 0.0055181065683541745,
+      "unequal_elements": 62460,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -2.02734375,
+      "comfy_value": -2.037109375
+    },
+    {
+      "step": 0,
+      "name": "unet.output.cond.raw",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float16",
+      "comfy_dtype": "torch.float16",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.315673828125,
+      "rms": 0.05449036946665378,
+      "relative_l2": 0.1897078084555054,
+      "unequal_elements": 65482,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -0.329833984375,
+      "comfy_value": -0.380615234375
+    },
+    {
+      "step": 0,
+      "name": "apply.output.uncond.denoised",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.01611328125,
+      "rms": 0.004071183376488219,
+      "relative_l2": 0.005518113296430933,
+      "unequal_elements": 62460,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": 2.0270729064941406,
+      "comfy_value": 2.0368385314941406
+    },
+    {
+      "step": 0,
+      "name": "apply.output.cond.denoised",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.3156738057732582,
+      "rms": 0.05449036358543565,
+      "relative_l2": 0.18971263194711177,
+      "unequal_elements": 65482,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": 0.32956334948539734,
+      "comfy_value": 0.3803446292877197
+    },
+    {
+      "step": 0,
+      "name": "cfg.cond",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.3156738057732582,
+      "rms": 0.05449036358543565,
+      "relative_l2": 0.18971263194711177,
+      "unequal_elements": 65482,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": 0.32956334948539734,
+      "comfy_value": 0.3803446292877197
+    },
+    {
+      "step": 0,
+      "name": "cfg.uncond",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.01611328125,
+      "rms": 0.004071183376488219,
+      "relative_l2": 0.005518113296430933,
+      "unequal_elements": 62460,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": 2.0270729064941406,
+      "comfy_value": 2.0368385314941406
+    },
+    {
+      "step": 0,
+      "name": "cfg.raw",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.259765625,
+      "rms": 0.21455432790649456,
+      "relative_l2": 0.07837783324770946,
+      "unequal_elements": 65512,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -4.762965202331543,
+      "comfy_value": -4.589137077331543
+    },
+    {
+      "step": 0,
+      "name": "cfg.final",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.259765625,
+      "rms": 0.21455432790649456,
+      "relative_l2": 0.07837783324770946,
+      "unequal_elements": 65512,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -4.762965202331543,
+      "comfy_value": -4.589137077331543
+    },
+    {
+      "step": 0,
+      "name": "step.denoised",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.259765625,
+      "rms": 0.21455432790649456,
+      "relative_l2": 0.07837783324770946,
+      "unequal_elements": 65512,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -4.762965202331543,
+      "comfy_value": -4.589137077331543
+    },
+    {
+      "step": 0,
+      "name": "step.x_after_callback",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "step.denoised_after_callback",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.259765625,
+      "rms": 0.21455432790649456,
+      "relative_l2": 0.07837783324770946,
+      "unequal_elements": 65512,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -4.762965202331543,
+      "comfy_value": -4.589137077331543
+    },
+    {
+      "step": 0,
+      "name": "solver.r",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [],
+      "comfy_stride": [],
+      "max_abs": 5.384208634495735e-10,
+      "rms": 5.384208634495735e-10,
+      "relative_l2": 2.7690191954397697e-06,
+      "unequal_elements": 1,
+      "first_index": [],
+      "forge_value": 0.00019444461213424802,
+      "comfy_value": 0.00019444407371338457
+    },
+    {
+      "step": 0,
+      "name": "solver.alpha_s",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [],
+      "comfy_stride": [],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "solver.alpha_t",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [],
+      "comfy_stride": [],
+      "max_abs": 1.1920928955078125e-07,
+      "rms": 1.1920928955078125e-07,
+      "relative_l2": 1.1920928955078125e-07,
+      "unequal_elements": 1,
+      "first_index": [],
+      "forge_value": 1.0,
+      "comfy_value": 1.0000001192092896
+    },
+    {
+      "step": 0,
+      "name": "step.x_before_noise",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.2595248222351074,
+      "rms": 0.21451247859090417,
+      "relative_l2": 0.07485134743869114,
+      "unequal_elements": 65536,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": -5.836280822753906,
+      "comfy_value": -5.662484169006348
+    },
+    {
+      "step": 0,
+      "name": "noise",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": 0,
+      "name": "step.x_out",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 1.259796142578125,
+      "rms": 0.21451246179050484,
+      "relative_l2": 0.00047694332140331967,
+      "unequal_elements": 65533,
+      "first_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "forge_value": 145.47293090820312,
+      "comfy_value": 145.64659118652344
+    }
+  ],
+  "initialization": [
+    {
+      "step": -1,
+      "name": "eps0",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": -1,
+      "name": "sigmas.base",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0106201171875,
+      "rms": 0.0003487467299271583,
+      "relative_l2": 2.059688196922315e-06,
+      "unequal_elements": 692,
+      "first_index": [
+        0
+      ],
+      "forge_value": 0.029167532920837402,
+      "comfy_value": 0.029167158529162407
+    },
+    {
+      "step": -1,
+      "name": "sigmas.base_log",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 1.4543533325195312e-05,
+      "rms": 1.0123127664651123e-06,
+      "relative_l2": 5.669716607538757e-07,
+      "unequal_elements": 729,
+      "first_index": [
+        0
+      ],
+      "forge_value": -3.534698963165283,
+      "comfy_value": -3.5347118377685547
+    },
+    {
+      "step": -1,
+      "name": "sigmas.sampler",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0003662109375,
+      "rms": 6.97269473453786e-05,
+      "relative_l2": 9.333654142613398e-08,
+      "unequal_elements": 25,
+      "first_index": [
+        1
+      ],
+      "forge_value": 446.7596435546875,
+      "comfy_value": 446.75927734375
+    },
+    {
+      "step": -1,
+      "name": "x0",
+      "occurrence": 0,
+      "status": "EXACT",
+      "equal_values": true,
+      "equal_dtype": true,
+      "equal_bytes": true,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "comfy_stride": [
+        65536,
+        16384,
+        128,
+        1
+      ],
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0
+    },
+    {
+      "step": -1,
+      "name": "sigmas.er",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0003662109375,
+      "rms": 6.97269473453786e-05,
+      "relative_l2": 9.333654142613398e-08,
+      "unequal_elements": 25,
+      "first_index": [
+        1
+      ],
+      "forge_value": 446.7596435546875,
+      "comfy_value": 446.75927734375
+    },
+    {
+      "step": -1,
+      "name": "sigmas.er_base",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.0106201171875,
+      "rms": 0.0003487467299271583,
+      "relative_l2": 2.059688196922315e-06,
+      "unequal_elements": 692,
+      "first_index": [
+        0
+      ],
+      "forge_value": 0.029167532920837402,
+      "comfy_value": 0.029167158529162407
+    },
+    {
+      "step": -1,
+      "name": "solver.er_lambdas",
+      "occurrence": 0,
+      "status": "DIFF",
+      "equal_values": false,
+      "equal_dtype": true,
+      "equal_bytes": false,
+      "forge_dtype": "torch.float32",
+      "comfy_dtype": "torch.float32",
+      "forge_device": "cuda:0",
+      "comfy_device": "cuda:0",
+      "forge_stride": [
+        1
+      ],
+      "comfy_stride": [
+        1
+      ],
+      "max_abs": 0.000396728515625,
+      "rms": 7.294804673770368e-05,
+      "relative_l2": 9.764830735421141e-08,
+      "unequal_elements": 22,
+      "first_index": [
+        1
+      ],
+      "forge_value": 446.7596435546875,
+      "comfy_value": 446.7592468261719
+    }
+  ],
+  "runtime": {
+    "metadata_forge": {
+      "python": "3.13.12",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "torch": "2.11.0+cu130",
+      "cuda": "13.0",
+      "gpu_names": [
+        "NVIDIA GeForce RTX 5070"
+      ],
+      "default_dtype": "torch.float32",
+      "deterministic": false,
+      "cudnn_deterministic": false,
+      "cudnn_benchmark": false,
+      "cudnn_allow_tf32": true,
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "engine": "forge",
+      "seed": 3257069847,
+      "sgm": false
+    },
+    "metadata_comfy": {
+      "python": "3.12.10",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "torch": "2.14.0+cu130",
+      "cuda": "13.0",
+      "gpu_names": [
+        "NVIDIA GeForce RTX 5070"
+      ],
+      "default_dtype": "torch.float32",
+      "deterministic": false,
+      "cudnn_deterministic": false,
+      "cudnn_benchmark": false,
+      "cudnn_allow_tf32": true,
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "engine": "comfy",
+      "seed": 3257069847
+    }
+  }
+}

@@ -1,0 +1,106 @@
+--- a/comfy/sd1_clip.py
++++ b/comfy/sd1_clip.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ import os
+ 
+ from transformers import CLIPTokenizer
+@@ -25,6 +26,7 @@
+     return output
+ 
+ class ClipTokenWeightEncoder:
++    @_t3.comfy_encoder
+     def encode_token_weights(self, token_weight_pairs):
+         to_encode = list()
+         max_token_len = 0
+@@ -44,6 +46,8 @@
+ 
+         o = self.encode(to_encode)
+         out, pooled = o[:2]
++        _t3.rows("hidden.selected", out)
++        _t3.rows("pool.returned", pooled)
+ 
+         if pooled is not None:
+             first_pooled = pooled[0:1].to(device=model_management.intermediate_device())
+@@ -60,6 +64,7 @@
+                         weight = token_weight_pairs[k][j][1]
+                         if weight != 1.0:
+                             z[i][j] = (z[i][j] - z_empty[j]) * weight + z_empty[j]
++            _t3.rows("hidden.weighted", z, k)
+             output.append(z)
+ 
+         if (len(output) == 0):
+@@ -263,7 +268,11 @@
+         else:
+             device = self.execution_device
+ 
++        _t3.comfy_clip_input(tokens)
+         embeds, attention_mask, num_tokens, embeds_info = self.process_tokens(tokens, device)
++        _t3.rows("clip.embeds", embeds)
++        _t3.rows("clip.padding_mask", attention_mask)
++        _t3.meta("pool.indices", indices=[n-1 for n in num_tokens])
+ 
+         attention_mask_model = None
+         if self.enable_attention_masks:
+@@ -293,6 +302,8 @@
+             elif outputs[2] is not None:
+                 pooled_output = outputs[2].float()
+ 
++        _t3.rows("hidden.pre_float", outputs[0] if self.layer == "last" else outputs[1])
++        _t3.rows("pool.raw", outputs[3] if len(outputs) > 3 else None)
+         extra = {}
+         if self.return_attention_masks:
+             extra["attention_mask"] = attention_mask
+@@ -569,6 +580,7 @@
+         else:
+             tokens.extend([(self.pad_token, 1.0, 0)] * amount)
+ 
++    @_t3.comfy_tokenizer
+     def tokenize_with_weights(self, text:str, return_word_ids=False, tokenizer_options={}, **kwargs):
+         '''
+         Takes a prompt and converts it to a list of (token, weight, word id) elements.
+@@ -587,6 +599,7 @@
+         else:
+             parsed_weights = token_weights(text, 1.0)
+ 
++        _t3.parsed(parsed_weights, unescape_important)
+         # tokenize words
+         tokens = []
+         for weighted_segment, weight in parsed_weights:
+--- a/comfy/sdxl_clip.py
++++ b/comfy/sdxl_clip.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ from comfy import sd1_clip
+ import torch
+ import os
+@@ -59,7 +60,9 @@
+         g_out, g_pooled = self.clip_g.encode_token_weights(token_weight_pairs_g)
+         l_out, l_pooled = self.clip_l.encode_token_weights(token_weight_pairs_l)
+         cut_to = min(l_out.shape[1], g_out.shape[1])
+-        return torch.cat([l_out[:,:cut_to], g_out[:,:cut_to]], dim=-1), g_pooled
++        _fc3_context = torch.cat([l_out[:,:cut_to], g_out[:,:cut_to]], dim=-1)
++        _t3.assembly("comfy", _fc3_context, g_pooled, l_length=l_out.shape[1], g_length=g_out.shape[1], cut_to=cut_to)
++        return _fc3_context, g_pooled
+ 
+     def load_sd(self, sd):
+         if "text_model.encoder.layers.30.mlp.fc1.weight" in sd:
+--- a/comfy/model_base.py
++++ b/comfy/model_base.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ """
+     This file is part of ComfyUI.
+     Copyright (C) 2024 Comfy
+@@ -544,7 +545,10 @@
+         out.append(self.embedder(torch.Tensor([target_height])))
+         out.append(self.embedder(torch.Tensor([target_width])))
+         flat = torch.flatten(torch.cat(out)).unsqueeze(dim=0).repeat(clip_pooled.shape[0], 1)
+-        return torch.cat((clip_pooled.to(flat.device), flat), dim=1)
++        _fc3_y = torch.cat((clip_pooled.to(flat.device), flat), dim=1)
++        _t3.assembly("comfy", None, clip_pooled, _fc3_y, prompt_type=kwargs.get("prompt_type"),
++                     size=[height,width,crop_h,crop_w,target_height,target_width])
++        return _fc3_y
+ 
+ 
+ class SVD_img2vid(BaseModel):

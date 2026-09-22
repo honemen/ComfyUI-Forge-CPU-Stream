@@ -1,0 +1,100 @@
+--- a/backend/text_processing/classic_engine.py
++++ b/backend/text_processing/classic_engine.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ import math
+ from collections import namedtuple
+ 
+@@ -115,6 +116,7 @@
+ 
+         if self.return_pooled:
+             pooled_output = outputs.pooler_output
++            _t3.rows("pool.raw", pooled_output)
+ 
+             if self.text_projection and self.embedding_key != "clip_l":
+                 pooled_output = self.text_encoder.transformer.text_projection(pooled_output)
+@@ -125,7 +127,9 @@
+     def tokenize_line(self, line):
+         parsed = parsing.parse_prompt_attention(line, self.emphasis.name)
+ 
++        _t3.parsed(parsed)
+         tokenized = self.tokenize([text for text, _ in parsed])
++        _t3.meta("tokens.prechunk", segments=tokenized)
+ 
+         chunks = []
+         chunk = PromptChunk()
+@@ -204,6 +208,8 @@
+         if chunk.tokens or not chunks:
+             next_chunk(is_last=True)
+ 
++        _t3.token_chunks([list(zip(c.tokens,c.multipliers)) for c in chunks], self.tokenizer, self.id_end, self.id_pad)
++        _t3.meta("token_count", count=token_count, chunks=len(chunks))
+         return chunks, token_count
+ 
+     def process_texts(self, texts):
+@@ -224,6 +230,7 @@
+ 
+         return batch_chunks, token_count
+ 
++    @_t3.forge_encoder
+     def __call__(self, texts):
+         self.emphasis = emphasis.get_current_option(opts.emphasis)()
+         if any(emphasis.uses_emphasis(x) for x in texts):
+@@ -266,6 +273,7 @@
+         else:
+             return torch.hstack(zs)
+ 
++    @_t3.forge_chunk
+     def process_tokens(self, remade_batch_tokens, batch_multipliers):
+         tokens = torch.asarray(remade_batch_tokens)
+ 
+@@ -274,13 +282,16 @@
+                 index = remade_batch_tokens[batch_pos].index(self.id_end)
+                 tokens[batch_pos, index + 1 : tokens.shape[1]] = self.id_pad
+ 
++        _t3.rows("clip_ids", tokens)
+         z = self.encode_with_transformers(tokens)
++        _t3.rows("hidden.selected", z)
+ 
+         pooled = getattr(z, "pooled", None)
+ 
+         self.emphasis.tokens = remade_batch_tokens
+         self.emphasis.multipliers = torch.asarray(batch_multipliers).to(z)
+         self.emphasis.z = z
++        _t3.rows("weights.runtime", self.emphasis.multipliers)
+         self.emphasis.after_transformers()
+         z = self.emphasis.z
+ 
+--- a/backend/text_processing/emphasis.py
++++ b/backend/text_processing/emphasis.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ import torch
+ 
+ 
+@@ -40,6 +41,8 @@
+         original_mean = self.z.mean()
+         self.z = self.z * self.multipliers.reshape(self.multipliers.shape + (1,)).expand(self.z.shape)
+         new_mean = self.z.mean()
++        _t3.put("emphasis.original_mean", original_mean)
++        _t3.put("emphasis.weighted_mean", new_mean)
+         self.z = self.z * (original_mean / new_mean)
+ 
+ 
+--- a/backend/diffusion_engine/sdxl.py
++++ b/backend/diffusion_engine/sdxl.py
+@@ -1,3 +1,4 @@
++import fc_trace3 as _t3
+ import torch
+ from huggingface_guess import model_list
+ 
+@@ -106,6 +107,9 @@
+             vector=torch.cat([clip_pooled, flat], dim=1),
+         )
+ 
++        _t3.assembly("forge", cond["crossattn"], clip_pooled, cond["vector"], prompt_texts=list(prompt),
++                     negative=getattr(prompt, "is_negative_prompt", None),
++                     size=[height,width,crop_h,crop_w,target_height,target_width])
+         return cond
+ 
+     @torch.inference_mode()

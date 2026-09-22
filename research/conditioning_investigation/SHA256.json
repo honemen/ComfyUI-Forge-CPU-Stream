@@ -1,0 +1,13 @@
+{
+  "chunk_boundary_reproducer.py": "20a040671cc1f47351ca7fba4f6d7e484578d76b904de0f1c158f028d263d78f",
+  "evidence.json": "5d4ec33e075aab808064e949df7b03c51843d5e44985ff86d3633124c0f00739",
+  "forge_chunks.py": "3f28f576a983cbf92bffad728309736f40d711d3bf9b8a5aaadaf622b9dce131",
+  "forge_level3_hotfixed_for_reverse.patch": "7bb9aba82ebbead3a038c0f5c3cfe5794540365148343b3a3f8172a32417fab4",
+  "optional_clip0_probe/baseline.json": "c545c175a72fc0da742ae28ae43e3e1f6a079626d3312a9ee36f22cec45079e5",
+  "optional_clip0_probe/clip0_only.patch": "318b1b611084caa18773686f2d52ad338c8b7377eb1c7e0eedc52207d13af55e",
+  "optional_clip0_probe/clip0_probe.py": "926a896a3c5cb5710d1ce2a85ba621b804f65be14de6307ca573aef26dbf9fd2",
+  "optional_clip0_probe/compare_clip0.py": "0d47e62e39365db7879e08f70066357b651c3ec49d1dcfd6e92a850547a900f2",
+  "optional_clip0_probe/compare_traces_v3.py": "5c3ec873fb5d9320e4ecf28fefc880386c60ac90a31c396a204534b3b15c7f81",
+  "optional_clip0_probe/negative_prompt.json": "4d6a59675f7ecbba770ab5a7001ca6b1a529d59665b269b2b5421da0525d4656",
+  "validation.json": "294f47419808b71bf190e8b3520096df742391cc01854b8bd013ba7a6cf1ef6a"
+}

@@ -1,0 +1,61 @@
+{
+  "real_trace_token_checks": [
+    {
+      "session": "session_0001",
+      "encoder": "l",
+      "id_exact": true,
+      "weights_exact": true
+    },
+    {
+      "session": "session_0002",
+      "encoder": "g",
+      "id_exact": true,
+      "weights_exact": true
+    },
+    {
+      "session": "session_0004",
+      "encoder": "l",
+      "id_exact": true,
+      "weights_exact": true
+    },
+    {
+      "session": "session_0005",
+      "encoder": "g",
+      "id_exact": true,
+      "weights_exact": true
+    }
+  ],
+  "negative_weighting_counterfactual_CPU": [
+    {
+      "encoder": "l",
+      "original_comfy_vs_forge": {
+        "max_abs": 0.3686370849609375,
+        "rms": 0.002479730304128582
+      },
+      "cpu_original_on_comfy_pre_vs_forge": {
+        "max_abs": 0.005462646484375,
+        "rms": 0.0002609452216020033
+      },
+      "cpu_original_on_forge_pre_vs_forge": {
+        "max_abs": 3.0517578125e-05,
+        "rms": 1.936720657411801e-07
+      }
+    },
+    {
+      "encoder": "g",
+      "original_comfy_vs_forge": {
+        "max_abs": 0.5089492797851562,
+        "rms": 0.004529932276810481
+      },
+      "cpu_original_on_comfy_pre_vs_forge": {
+        "max_abs": 0.06689977645874023,
+        "rms": 0.001629704822200624
+      },
+      "cpu_original_on_forge_pre_vs_forge": {
+        "max_abs": 7.62939453125e-06,
+        "rms": 9.183180109382388e-08
+      }
+    }
+  ],
+  "limitation": "No checkpoint inference. CPU reduction is not a proof of GPU bit equality."
+}

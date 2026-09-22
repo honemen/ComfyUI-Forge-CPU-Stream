@@ -1,0 +1,76 @@
+--- a/backend/sampling/sampling_function.py
++++ b/backend/sampling/sampling_function.py
+@@ -11,6 +11,8 @@
+     from backend.patcher.unet import UnetPatcher
+ 
+ import torch
++from fc_trace import trace as _fc
++_fc.source(__file__)
+ 
+ from backend import memory_management, utils
+ from backend.args import args, dynamic_args
+@@ -305,6 +307,13 @@
+     else:
+         cond_pred, uncond_pred = calc_cond_uncond_batch(model, cond, uncond_, x, timestep, model_options)
+ 
++    _fc.put("cfg.cond", cond_pred, level=2)
++    _fc.put("cfg.uncond", uncond_pred, level=2)
++    _fc.meta("cfg.options", level=2, cond_scale=cond_scale,
++             pre=model_options.get("sampler_pre_cfg_function", []),
++             custom=model_options.get("sampler_cfg_function", None),
++             post=model_options.get("sampler_post_cfg_function", []))
++    _fc.meta("cfg.strength", level=2, edit_strength=edit_strength)
+     if "sampler_cfg_function" in model_options:
+         args = {"cond": x - cond_pred, "uncond": x - uncond_pred, "cond_scale": cond_scale, "timestep": timestep, "input": x, "sigma": timestep, "cond_denoised": cond_pred, "uncond_denoised": uncond_pred, "model": model, "model_options": model_options}
+         cfg_result = x - model_options["sampler_cfg_function"](args)
+@@ -313,10 +322,12 @@
+     else:
+         cfg_result = uncond_pred + (cond_pred - uncond_pred) * cond_scale
+ 
++    _fc.put("cfg.raw", cfg_result, level=2)
+     for fn in model_options.get("sampler_post_cfg_function", []):
+         args = {"denoised": cfg_result, "cond": cond, "uncond": uncond, "cond_scale": cond_scale, "model": model, "uncond_denoised": uncond_pred, "cond_denoised": cond_pred, "sigma": timestep, "model_options": model_options, "input": x}
+         cfg_result = fn(args)
+ 
++    _fc.put("cfg.final", cfg_result, level=2)
+     if return_full:
+         return cfg_result, cond_pred, uncond_pred
+ 
+--- a/backend/modules/k_model.py
++++ b/backend/modules/k_model.py
+@@ -1,6 +1,8 @@
+ import math
+ 
+ import torch
++from fc_trace import trace as _fc
++_fc.source(__file__)
+ 
+ from backend import args, memory_management
+ from backend.modules.k_prediction import k_prediction_from_diffusers_scheduler
+@@ -35,6 +37,8 @@
+             self.predictor = k_predictor
+ 
+     def apply_model(self, x, t, c_concat=None, c_crossattn=None, control=None, transformer_options={}, **kwargs):
++        _fc_labels = transformer_options.get("cond_or_uncond", [])
++        _fc.packet("apply.input", dict(x=x, sigma=t, context=c_crossattn, y=kwargs.get("y")), _fc_labels)
+         sigma = t
+         xc = self.predictor.calculate_input(sigma, x)
+         if c_concat is not None:
+@@ -54,8 +58,15 @@
+                     extra = extra.to(dtype)
+             extra_conds[o] = extra
+ 
+-        model_output = self.diffusion_model(xc, t, context=context, control=control, transformer_options=transformer_options, **extra_conds).float()
+-        return self.predictor.calculate_denoised(sigma, model_output, x)
++        _fc.packet("unet.input", dict(xc=xc, timestep=t, context=context, y=extra_conds.get("y")), _fc_labels)
++        _fc.meta("unet.config", level=2, inference_dtype=str(dtype), control_present=control is not None,
++                 transformer_keys=sorted(transformer_options.keys()), extra_keys=sorted(extra_conds.keys()))
++        model_output = self.diffusion_model(xc, t, context=context, control=control, transformer_options=transformer_options, **extra_conds)
++        _fc.packet("unet.output", dict(raw=model_output), _fc_labels)
++        model_output = model_output.float()
++        _fc_denoised = self.predictor.calculate_denoised(sigma, model_output, x)
++        _fc.packet("apply.output", dict(denoised=_fc_denoised), _fc_labels)
++        return _fc_denoised
+ 
+     def memory_required(self, input_shape: list[int]) -> float:
+         """https://github.com/comfyanonymous/ComfyUI/blob/v0.3.64/comfy/model_base.py#L354"""

@@ -1,0 +1,68 @@
+--- a/comfy/samplers.py
++++ b/comfy/samplers.py
+@@ -592,6 +592,12 @@
+     return tuple(calc_cond_batch(model, [cond, uncond], x_in, timestep, model_options))
+ 
+ def cfg_function(model, cond_pred, uncond_pred, cond_scale, x, timestep, model_options={}, cond=None, uncond=None):
++    _fc.put("cfg.cond", cond_pred, level=2)
++    _fc.put("cfg.uncond", uncond_pred, level=2)
++    _fc.meta("cfg.options", level=2, cond_scale=cond_scale,
++             pre=model_options.get("sampler_pre_cfg_function", []),
++             custom=model_options.get("sampler_cfg_function", None),
++             post=model_options.get("sampler_post_cfg_function", []))
+     if "sampler_cfg_function" in model_options:
+         args = {"cond": x - cond_pred, "uncond": x - uncond_pred, "cond_scale": cond_scale, "timestep": timestep, "input": x, "sigma": timestep,
+                 "cond_denoised": cond_pred, "uncond_denoised": uncond_pred, "model": model, "model_options": model_options, "input_cond": cond, "input_uncond": uncond}
+@@ -599,11 +605,13 @@
+     else:
+         cfg_result = uncond_pred + (cond_pred - uncond_pred) * cond_scale
+ 
++    _fc.put("cfg.raw", cfg_result, level=2)
+     for fn in model_options.get("sampler_post_cfg_function", []):
+         args = {"denoised": cfg_result, "cond": cond, "uncond": uncond, "cond_scale": cond_scale, "model": model, "uncond_denoised": uncond_pred, "cond_denoised": cond_pred,
+                 "sigma": timestep, "model_options": model_options, "input": x}
+         cfg_result = fn(args)
+ 
++    _fc.put("cfg.final", cfg_result, level=2)
+     return cfg_result
+ 
+ #The main sampling function shared by all the samplers
+--- a/comfy/model_base.py
++++ b/comfy/model_base.py
+@@ -19,6 +19,8 @@
+ import comfy.ldm.hunyuan3dv2_1
+ import comfy.ldm.hunyuan3dv2_1.hunyuandit
+ import torch
++from fc_trace import trace as _fc
++_fc.source(__file__)
+ import logging
+ import comfy.ldm.lightricks.av_model
+ import comfy.ldm.minimax.model
+@@ -212,6 +214,8 @@
+         ).execute(x, t, c_concat, c_crossattn, control, transformer_options, **kwargs)
+ 
+     def _apply_model(self, x, t, c_concat=None, c_crossattn=None, control=None, transformer_options={}, **kwargs):
++        _fc_labels = transformer_options.get("cond_or_uncond", [])
++        _fc.packet("apply.input", dict(x=x, sigma=t, context=c_crossattn, y=kwargs.get("y")), _fc_labels)
+         sigma = t
+         xc = self.model_sampling.calculate_input(sigma, x)
+ 
+@@ -249,11 +253,17 @@
+             self.current_patcher is not None and self.current_patcher.is_dynamic()
+         )
+ 
++        _fc.packet("unet.input", dict(xc=xc, timestep=t, context=context, y=extra_conds.get("y")), _fc_labels)
++        _fc.meta("unet.config", level=2, inference_dtype=str(dtype), control_present=control is not None,
++                 transformer_keys=sorted(transformer_options.keys()), extra_keys=sorted(extra_conds.keys()))
+         model_output = self.diffusion_model(xc, t, context=context, control=control, transformer_options=transformer_options, **extra_conds)
++        _fc.packet("unet.output", dict(raw=model_output), _fc_labels)
+         if len(model_output) > 1 and not torch.is_tensor(model_output):
+             model_output, _ = utils.pack_latents(model_output)
+ 
+-        return self.model_sampling.calculate_denoised(sigma, model_output.float(), x)
++        _fc_denoised = self.model_sampling.calculate_denoised(sigma, model_output.float(), x)
++        _fc.packet("apply.output", dict(denoised=_fc_denoised), _fc_labels)
++        return _fc_denoised
+ 
+     def process_timestep(self, timestep, **kwargs):
+         return timestep

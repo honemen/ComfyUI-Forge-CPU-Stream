@@ -1,0 +1,10 @@
+{
+  "forge/backend/text_processing/classic_engine.py": "64ec15163d70b5972973e83e78965815c8675ba152569c34d00d39ef3eb1c44d",
+  "forge/backend/text_processing/emphasis.py": "9ec5ebebf636803a90528e09e59dae4972d0820d14f83a651620386ce7e87bf0",
+  "forge/backend/diffusion_engine/sdxl.py": "a45102102af89a05654ca96b01bda59d2b26b9347ddff1324d17d967a3e3073a",
+  "comfy/comfy/sd1_clip.py": "cada45bf2cd1e2e20d24a46b959d86fc9f5529953456bb21471735f036e2dc70",
+  "comfy/comfy/sdxl_clip.py": "dd3c01e1c302876612897c0051baa6e108751e36abcba7327490b25a571f97fd",
+  "comfy/comfy/model_base.py": "f2e36181ac581089726622c2f0e898534838ef02cab5a5f46902e69c9920d641",
+  "forge/extensions-builtin/sd_forge_lora/networks.py": "2eddad97e200a413c64be9b21cafbf184bf01065f4bf12a8c464b8216075a2a1",
+  "comfy/comfy/sd.py": "ef373b88ced93955a7147dcd3323ecac9cd5316f0ae4623adfb9b6b128c37ba7"
+}

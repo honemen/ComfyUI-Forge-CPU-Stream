@@ -1,0 +1,407 @@
+{
+  "id": "5da72208-e02c-4843-b7c3-e8203864b886",
+  "revision": 0,
+  "last_node_id": 60,
+  "last_link_id": 101,
+  "nodes": [
+    {
+      "id": 56,
+      "type": "ForgeTextEncode",
+      "pos": [
+        742.9343432143794,
+        -550.722541197794
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 92
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            94
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeTextEncode"
+      },
+      "widgets_values": [
+        "masterpiece, best quality, amazing quality, very aesthetic, absurdres, newest,\n1girl, original character, short silver hair, blue eyes, white jacket,\nstanding, looking at viewer, simple city street background,\ndaytime, soft natural lighting, detailed illustration"
+      ],
+      "widgets_values_named": {
+        "text": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, newest,\n1girl, original character, short silver hair, blue eyes, white jacket,\nstanding, looking at viewer, simple city street background,\ndaytime, soft natural lighting, detailed illustration"
+      }
+    },
+    {
+      "id": 58,
+      "type": "ForgeTextEncode",
+      "pos": [
+        768.2335991718379,
+        -295.3001943307898
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 97
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            95
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeTextEncode"
+      },
+      "widgets_values": [
+        "worst quality, low quality, lowres, blurry, bad anatomy, bad hands"
+      ],
+      "widgets_values_named": {
+        "text": "worst quality, low quality, lowres, blurry, bad anatomy, bad hands"
+      }
+    },
+    {
+      "id": 55,
+      "type": "ForgeKSampler",
+      "pos": [
+        1250.5984797652595,
+        -692.2330391268063
+      ],
+      "size": [
+        289.9869140625,
+        522
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 101
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 94
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 95
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 96
+        }
+      ],
+      "outputs": [
+        {
+          "label": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            98
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ForgeKSampler"
+      },
+      "widgets_values": [
+        6563063902883769,
+        36,
+        4,
+        "er_sde",
+        "beta",
+        0.6,
+        0.6,
+        1,
+        null
+      ],
+      "widgets_values_named": {
+        "seed": 6563063902883769,
+        "steps": 36,
+        "cfg": 4,
+        "sampler_name": "er_sde",
+        "scheduler": "beta",
+        "beta_alpha": 0.6,
+        "beta_beta": 0.6,
+        "denoise": 1,
+        "Random seed": null
+      }
+    },
+    {
+      "id": 25,
+      "type": "EmptyLatentImage",
+      "pos": [
+        942.3890666956831,
+        -59.52539792627761
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            96
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 59,
+      "type": "VAEDecode",
+      "pos": [
+        1599.5451902677937,
+        -650.6539043210948
+      ],
+      "size": [
+        157.14277350896373,
+        46
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 98
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 99
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            100
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 29,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        410.22319504416697,
+        -693.4963784291947
+      ],
+      "size": [
+        281.9,
+        98
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            101
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            92,
+            97
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            99
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "silvermoonmix_v60VPred.safetensors"
+      ],
+      "widgets_values_named": {
+        "ckpt_name": "silvermoonmix_v60VPred.safetensors"
+      }
+    },
+    {
+      "id": 60,
+      "type": "PreviewImage",
+      "pos": [
+        1792.4242649110347,
+        -650.3010001132659
+      ],
+      "size": [
+        140,
+        246
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 100
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    }
+  ],
+  "links": [
+    [
+      92,
+      29,
+      1,
+      56,
+      0,
+      "CLIP"
+    ],
+    [
+      94,
+      56,
+      0,
+      55,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      95,
+      58,
+      0,
+      55,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      96,
+      25,
+      0,
+      55,
+      3,
+      "LATENT"
+    ],
+    [
+      97,
+      29,
+      1,
+      58,
+      0,
+      "CLIP"
+    ],
+    [
+      98,
+      55,
+      0,
+      59,
+      0,
+      "LATENT"
+    ],
+    [
+      99,
+      29,
+      2,
+      59,
+      1,
+      "VAE"
+    ],
+    [
+      100,
+      59,
+      0,
+      60,
+      0,
+      "IMAGE"
+    ],
+    [
+      101,
+      29,
+      0,
+      55,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7012305685622849,
+      "offset": [
+        -189.65064010318844,
+        1103.8070506803942
+      ]
+    },
+    "frontendVersion": "1.51.10"
+  },
+  "version": 0.4
+}
