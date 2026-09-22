@@ -1,0 +1,38 @@
+Third-Party Notices
+
+This repository contains code and research artifacts developed while
+investigating behavioral differences between ComfyUI and Forge / Forge Neo.
+
+ComfyUI
+-------
+https://github.com/Comfy-Org/ComfyUI
+
+ComfyUI is licensed under the GNU General Public License v3.0 (GPL-3.0).
+
+Stable Diffusion WebUI Forge
+----------------------------
+https://github.com/lllyasviel/stable-diffusion-webui-forge
+
+Stable Diffusion WebUI Forge is licensed under the GNU Affero General
+Public License v3.0 (AGPL-3.0).
+
+Forge Classic
+-------------
+Parts of the text chunking investigation and forge_chunks.py are based on
+or derived from Forge Classic source code. Source attribution and the
+referenced upstream commit are retained in the relevant source files.
+
+Forge Classic is licensed under the GNU Affero General Public License
+v3.0 (AGPL-3.0).
+
+Research patches
+----------------
+Files under research/ include patches and instrumentation created for
+comparison with specific historical ComfyUI and Forge / Forge Neo source
+layouts.
+
+These patches are research artifacts. They are not guaranteed to apply
+to current versions of the upstream projects.
+
+This project is unofficial and is not affiliated with or endorsed by
+ComfyUI, Stable Diffusion WebUI Forge, or Forge Neo.
