@@ -3,6 +3,18 @@
 Experimental ComfyUI nodes and research artifacts for investigating and
 reducing selected implementation differences between ComfyUI and Forge Neo.
 
+![ComfyUI vs Forge CPU Stream vs Forge Neo](comparison_comfy_cpustream_forge.png)
+
+**Left:** standard ComfyUI  
+**Center:** Forge CPU Stream  
+**Right:** Forge Neo
+
+**Seed:** `6563063902883769`
+
+Same seed and primary test settings. In this example, the Forge CPU Stream
+result shows substantially closer large-scale composition to the Forge Neo
+result than the standard ComfyUI result.
+
 This project does not claim pixel-perfect reproduction or complete
 compatibility.
 
